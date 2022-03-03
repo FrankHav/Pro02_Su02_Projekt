@@ -11,20 +11,25 @@ public class DagligFast extends Ordination {
     private double natAntal;
     private Dosis[] dosisArray = new Dosis[4];
 
+    //
     public DagligFast(LocalDate startDen, LocalDate slutDen, double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
         super(startDen, slutDen);
-        if (morgenAntal>0){
-            createDosis(LocalTime.of(8, 0), morgenAntal,0);
-        }
-        this.dosisArray[0] = cmorgenAntal;
-        this.middagAntal = middagAntal;
-        this.aftenAntal = aftenAntal;
-        this.natAntal = natAntal;
+        if (morgenAntal > 0)
+            createDosis(LocalTime.of(6, 0), morgenAntal,0);
+
+        if (middagAntal > 0)
+            createDosis(LocalTime.of(12, 0), middagAntal, 1);
+
+        if (aftenAntal > 0 )
+            createDosis(LocalTime.of(18, 0), aftenAntal, 2);
+
+       if (natAntal > 0)
+           createDosis(LocalTime.of(24, 0), natAntal, 3);
     }
 
     public Dosis createDosis(LocalTime tid, double antal, int index){
         Dosis dosis = new Dosis(tid, antal);
-        dosisArray[dosisArray.length-1] = dosis;
+        dosisArray[index] = dosis;
         return dosis;
     }
 
@@ -36,9 +41,9 @@ public class DagligFast extends Ordination {
     public double samletDosis() {
         int samletDos = 0;
         for (int i = 0; i < dosisArray.length;i++){
-            samletDos += dosisArray[i];
+            samletDos += dosisArray[i].getAntal();
         }
-        return ;
+        return samletDos;
     }
 
     @Override
@@ -48,7 +53,7 @@ public class DagligFast extends Ordination {
 
     @Override
     public String getType() {
-        return null;
+        return "Dagligfast";
     }
 
     //commentar fra Jesper
