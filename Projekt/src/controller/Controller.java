@@ -39,12 +39,20 @@ public class Controller {
 	 * @return opretter og returnerer en PN ordination.
 	 */
 	public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
-			Patient patient, Laegemiddel laegemiddel, double antal) {
+			Patient patient, Laegemiddel laegemiddel, double antal)
+	{
 		// TODO
-		PN pn = new PN(startDen, slutDen, antal);
-		pn.setLaegemiddel(laegemiddel);
-		patient.addOrdination(pn);
-		return pn;
+		if (!checkStartFoerSlut(startDen, slutDen))
+		{
+			throw new IllegalArgumentException("StartDato er efter slutDato");
+		}
+		else
+		{
+			PN pn = new PN(startDen, slutDen, antal);
+			pn.setLaegemiddel(laegemiddel);
+			patient.addOrdination(pn);
+			return pn;
+		}
 	}
 
 	/**
