@@ -1,5 +1,7 @@
 package ordination;
 
+import java.util.ArrayList;
+
 public class Patient {
     private String cprnr;
     private String navn;
@@ -7,20 +9,20 @@ public class Patient {
 
     //----------------------------------------------------------------
     // TODO: Link til Ordination
-    //association --> 0..1 Ordination
-    private Ordination ordination;
+    //association --> 0..* Ordination
+    private ArrayList<Ordination> ordinationer;
 
     //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
     /** Pre: Ordinationen er ikke forbundet til en patient. */
-    public void setOrdination(Ordination ordination)
+    public void addOrdination(Ordination ordination)
     {
-        this.ordination = ordination;
+        this.ordinationer.add(ordination);
     }
 
     /** Pre: Ordinationen er forbundet til denne patient. */
     public void removeOrdination(Ordination ordination)
     {
-        this.ordination = null;
+        this.ordinationer.remove(ordination);
     }
 
     //----------------------------------------------------------------
