@@ -5,58 +5,62 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DagligSkaev extends Ordination{
-    // TODO
 
-    private LocalDate startDen;
-    private LocalDate slutDen;
     private LocalTime tid;
     private Laegemiddel laegemiddel;
     private LocalTime[] klokkeSlet;
     private double antal;
 
+    //-----------------------------------------------------------------------------------------------------
+
     public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime tid, double antal,
-                       Laegemiddel laegemiddel) {
-        super(startDen, slutDen);
+                       Laegemiddel laegemiddel, Patient patient) {
+        super(startDen, slutDen, patient);
         this.laegemiddel = laegemiddel;
         this.antal = antal;
         this.tid = tid;
 
     }
 
+    // Composition: --> 0..* Dosis
+    private final ArrayList<Dosis> doser = new ArrayList<>();
 
-    public void opretDosis(LocalTime tid, double antal,LocalDate startDen,LocalDate slutDen, Patient patient,
+    public ArrayList<Dosis> getDoser(){
+        return new ArrayList<>(doser);
+    }
+
+
+    public Dosis opretDosis(LocalTime tid, double antal,LocalDate startDen,LocalDate slutDen, Patient patient,
                            Laegemiddel laegemiddel) {
-    Dosis dosis = new Dosis(tid, antal);
-    dosiser.add(dosis);
-
-            // TODO
+        Dosis dosis = new Dosis(tid, antal);
+        doser.add(dosis);
+        return dosis;
     }
 
-    private final ArrayList<Dosis> dosiser = new ArrayList<>();
+    public void removeDosis(Dosis dosis){
+        if(doser.contains(dosis)){
+            doser.remove(dosis);
+        }
 
-    public ArrayList<Dosis> getDosiser(){
-        return new ArrayList<>(dosiser);
     }
+
 
     @Override
     public double samletDosis() {
         double dosisAntal = 0;
-        for (Dosis dosis : dosiser)
+        for (Dosis dosis : doser)
            dosisAntal += dosis.getAntal();
         return dosisAntal;
     }
 
     @Override
     public double doegnDosis() {
-        double dosisAntal = 0;
-        for (Dosis dosis : dosiser)
-            if (dosis.)
-
         return 0;
     }
 
     @Override
     public String getType() {
-        return null;
+        return "SKAEV";
     }
+
 }
