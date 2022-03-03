@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 //test af martinn
@@ -128,6 +124,13 @@ public class Controller {
 	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
 			double vægtSlut, Laegemiddel laegemiddel) {
 		// TODO
+		for (Patient patient : storage.getAllPatienter())
+		{
+			for (Ordination ordination : patient.getOrdinationer())
+			{
+				if (ordination.getLaegemiddel())
+			}
+		}
 		return 0;
 	}
 

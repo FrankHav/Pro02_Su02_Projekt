@@ -12,6 +12,11 @@ public abstract class Ordination {
     //association --> 0..1 Laegemiddel
     private Laegemiddel laegemiddel;
 
+    public Laegemiddel getLaegemiddel()
+    {
+        return laegemiddel;
+    }
+
     public void setLaegemiddel(Laegemiddel laegemiddel)
     {
         this.laegemiddel = laegemiddel;
