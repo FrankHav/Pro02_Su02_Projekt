@@ -9,29 +9,49 @@ public class DagligSkaev extends Ordination{
 
     private LocalDate startDen;
     private LocalDate slutDen;
-    private Patient patient;
+    private LocalTime tid;
     private Laegemiddel laegemiddel;
     private LocalTime[] klokkeSlet;
-    private double[] antalEnheder;
+    private double antal;
+
+    public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime tid, double antal,
+                       Laegemiddel laegemiddel) {
+        super(startDen, slutDen);
+        this.laegemiddel = laegemiddel;
+        this.antal = antal;
+        this.tid = tid;
+
+    }
 
 
     public void opretDosis(LocalTime tid, double antal,LocalDate startDen,LocalDate slutDen, Patient patient,
                            Laegemiddel laegemiddel) {
     Dosis dosis = new Dosis(tid, antal);
     dosiser.add(dosis);
-        // TODO
+
+            // TODO
     }
 
     private final ArrayList<Dosis> dosiser = new ArrayList<>();
 
+    public ArrayList<Dosis> getDosiser(){
+        return new ArrayList<>(dosiser);
+    }
 
     @Override
     public double samletDosis() {
-        return 0;
+        double dosisAntal = 0;
+        for (Dosis dosis : dosiser)
+           dosisAntal += dosis.getAntal();
+        return dosisAntal;
     }
 
     @Override
     public double doegnDosis() {
+        double dosisAntal = 0;
+        for (Dosis dosis : dosiser)
+            if (dosis.)
+
         return 0;
     }
 
