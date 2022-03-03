@@ -1,6 +1,7 @@
 package ordination;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Patient {
     private String cprnr;
@@ -10,7 +11,7 @@ public class Patient {
     //----------------------------------------------------------------
     // TODO: Link til Ordination
     //association --> 0..* Ordination
-    private ArrayList<Ordination> ordinationer;
+    private List<Ordination> ordinationer = new ArrayList<>();
 
     public ArrayList<Ordination> getOrdinationer()
     {

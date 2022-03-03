@@ -42,11 +42,24 @@ public class PN extends Ordination{
     public double doegnDosis() {
         // TODO
         //(antal gange ordinationen er anvendt * antal enheder) / (antal dage mellem første og sidste givning)
-        LocalDate første = datoerForGivetDosis.get(0);
-        LocalDate sidste = datoerForGivetDosis.get(datoerForGivetDosis.size()-1);
-        long dageImellemFørsteOgSidste = ChronoUnit.DAYS.between(første, sidste) + 1;
+        if (datoerForGivetDosis.size() > 0)
+        {
+            LocalDate første = datoerForGivetDosis.get(0);
+            LocalDate sidste = datoerForGivetDosis.get(0);
+            for (LocalDate dato : datoerForGivetDosis)
+            {
+                if (dato.isBefore(første))
+                    første = dato;
+                if (dato.isAfter(sidste))
+                    sidste = dato;
+            }
 
-        return getAntalGangeGivet() * antalEnheder / dageImellemFørsteOgSidste;
+            long dageImellemFørsteOgSidste = ChronoUnit.DAYS.between(første, sidste) + 1;
+
+            return getAntalGangeGivet() * antalEnheder / dageImellemFørsteOgSidste;
+        }
+        else
+        return 0;
     }
 
 
