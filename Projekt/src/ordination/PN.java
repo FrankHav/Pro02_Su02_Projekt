@@ -3,16 +3,19 @@ package ordination;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PN extends Ordination{
 
     private double antalEnheder;
-    private ArrayList<LocalDate> datoerForGivetDosis = new ArrayList<>();
+    private List<LocalDate> datoerForGivetDosis = new ArrayList<>();
 
     //----------------------------------------------------------------------------------
-    public PN(LocalDate startDen, LocalDate slutDen, double antalEnheder)
+
+
+    public PN(LocalDate startDen, LocalDate slutDen, Patient patient, double antalEnheder)
     {
-        super(startDen, slutDen);
+        super(startDen, slutDen, patient);
         this.antalEnheder = antalEnheder;
     }
 

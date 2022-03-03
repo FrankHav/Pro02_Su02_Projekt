@@ -12,7 +12,11 @@ public class Patient {
     //association --> 0..* Ordination
     private ArrayList<Ordination> ordinationer;
 
-    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
+    public ArrayList<Ordination> getOrdinationer()
+    {
+        return new ArrayList<>(ordinationer);
+    }
+//TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
     /** Pre: Ordinationen er ikke forbundet til en patient. */
     public void addOrdination(Ordination ordination)
     {
