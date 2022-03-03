@@ -13,10 +13,8 @@ public class DagligSkaev extends Ordination{
 
     //-----------------------------------------------------------------------------------------------------
 
-    public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime tid, double antal,
-                       Laegemiddel laegemiddel, Patient patient) {
+    public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime tid, double antal, Patient patient) {
         super(startDen, slutDen, patient);
-        this.laegemiddel = laegemiddel;
         this.antal = antal;
         this.tid = tid;
 

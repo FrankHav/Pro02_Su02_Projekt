@@ -82,15 +82,17 @@ public class Controller {
 	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
 			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
+
 		if (!checkStartFoerSlut(startDen, slutDen)) {
 			throw new IllegalArgumentException("StartDato er efter slutDato");
-		} else
-			DagligSkaev ds = new DagligSkaev(startDen, slutDen, patient, laegemiddel) {
+		}
+		else {
+			DagligSkaev ds = new DagligSkaev(startDen, slutDen, klokkeSlet, antalEnheder, patient);
+			ds.setLaegemiddel(laegemiddel);
+			return ds;
 				// TODO
+		}
 
-
-			}
-		return ds;
 
 
 	}
