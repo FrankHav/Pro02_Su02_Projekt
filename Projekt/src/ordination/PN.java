@@ -25,9 +25,12 @@ public class PN extends Ordination{
      */
     public boolean givDosis(LocalDate givesDen) {
         // TODO
-        datoerForGivetDosis.add(givesDen);
+
         if (givesDen.isAfter(getStartDen()) && givesDen.isBefore(getSlutDen()))
+        {
+            datoerForGivetDosis.add(givesDen);
             return true;
+        }
         else
             return false;
     }
@@ -45,6 +48,8 @@ public class PN extends Ordination{
 
     public double samletDosis() {
         // TODO
+        //Returnerer den totale dosis der er givet i den periode ordinationen er gyldig
+
         return 0.0;
     }
 
