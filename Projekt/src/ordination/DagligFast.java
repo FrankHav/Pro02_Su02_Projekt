@@ -2,10 +2,11 @@ package ordination;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class DagligFast extends Ordination {
     // TODO
-    private Dosis morgenAntal;
+    private double morgenAntal;
     private double middagAntal;
     private double aftenAntal;
     private double natAntal;
@@ -39,16 +40,19 @@ public class DagligFast extends Ordination {
 
     @Override
     public double samletDosis() {
-        int samletDos = 0;
-        for (int i = 0; i < dosisArray.length;i++){
-            samletDos += dosisArray[i].getAntal();
-        }
-        return samletDos;
+        long dageMellem = ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
+        return dageMellem*4;
     }
 
     @Override
     public double doegnDosis() {
-        return 0;
+        int sum = 0;
+        int count = 0;
+        for (int i = 0; i < dosisArray.length; i++){
+            sum += dosisArray[i].getAntal();
+            count++;
+        }
+        return sum/count;
     }
 
     @Override
