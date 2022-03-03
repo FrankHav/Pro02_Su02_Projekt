@@ -25,10 +25,11 @@ public abstract class Ordination {
     //----------------------------------------------------------------
     // TODO constructor (med specifikation)
     //Opretter on ordination med en startdato og en slutdato
-    public Ordination(LocalDate startDen, LocalDate slutDen)
+    public Ordination(LocalDate startDen, LocalDate slutDen, Patient patient)
     {
         this.startDen = startDen;
         this.slutDen = slutDen;
+        patient.addOrdination(this);
     }
 
     public LocalDate getStartDen() {

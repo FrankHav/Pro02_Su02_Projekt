@@ -40,17 +40,16 @@ public class PN extends Ordination{
         //(antal gange ordinationen er anvendt * antal enheder) / (antal dage mellem første og sidste givning)
         LocalDate første = datoerForGivetDosis.get(0);
         LocalDate sidste = datoerForGivetDosis.get(datoerForGivetDosis.size()-1);
-        long dageImellemFørsteOgSdiste = ChronoUnit.DAYS.between(første, sidste) + 1;
+        long dageImellemFørsteOgSidste = ChronoUnit.DAYS.between(første, sidste) + 1;
 
-        return datoerForGivetDosis.size() * antalEnheder / dageImellemFørsteOgSdiste;
+        return getAntalGangeGivet() * antalEnheder / dageImellemFørsteOgSidste;
     }
 
 
     public double samletDosis() {
         // TODO
         //Returnerer den totale dosis der er givet i den periode ordinationen er gyldig
-
-        return 0.0;
+        return getAntalGangeGivet() * antalEnheder;
     }
 
     /**
@@ -59,7 +58,7 @@ public class PN extends Ordination{
      */
     public int getAntalGangeGivet() {
         // TODO
-        return-1;
+        return datoerForGivetDosis.size();
     }
 
     public double getAntalEnheder() {
