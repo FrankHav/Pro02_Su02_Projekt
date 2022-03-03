@@ -91,6 +91,15 @@ public class Controller {
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
 		// TODO
+		//Hvis datoen ER indenfor ordinationens gyldighedsperiode:
+		if ((dato.isAfter(ordination.getStartDen()) || dato.isEqual(ordination.getStartDen())) &&
+				(dato.isBefore(ordination.getSlutDen()) || dato.isEqual(ordination.getSlutDen())))
+		{
+			ordination.givDosis(dato);
+		}
+		//Hvis datoen IKKE ER indenfor ordinationens gyldighedsperiode:
+		else
+			throw new IllegalArgumentException("Datoen ikke er indenfor ordinationens gyldighedsperiode");
 	}
 
 	/**
