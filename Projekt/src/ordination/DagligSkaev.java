@@ -55,7 +55,7 @@ public class DagligSkaev extends Ordination{
 
     @Override
     public double doegnDosis() {
-        return 0;
+        return  0;
     }
 
     @Override
