@@ -97,7 +97,7 @@ public class Controller {
 		{
 			ordination.givDosis(dato);
 		}
-		//Hvis datoen IKKE ER indenfor ordinationens gyldighedsperiode:
+		//Hvis datoen IKKE er indenfor ordinationens gyldighedsperiode:
 		else
 			throw new IllegalArgumentException("Datoen ikke er indenfor ordinationens gyldighedsperiode");
 	}
@@ -110,7 +110,14 @@ public class Controller {
 	 */
 	public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
 		//TODO
-		return 0;
+		double patientensVaegt = patient.getVaegt();
+
+		if (patientensVaegt < 25)
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnLet();
+		else if (patientensVaegt <= 120)
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnNormal();
+		else
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnTung();
 	}
 
 	/**
