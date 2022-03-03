@@ -11,7 +11,7 @@ import ordination.PN;
 import ordination.Patient;
 import storage.Storage;
 
-//test af branch
+//test af martinn
 public class Controller {
 	private Storage storage;
 	private static Controller controller;
