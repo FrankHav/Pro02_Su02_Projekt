@@ -55,7 +55,10 @@ public class DagligSkaev extends Ordination{
 
     @Override
     public double doegnDosis() {
-        return  0;
+        double dosisAntal = 0;
+        for (Dosis dosis : doser)
+            dosisAntal += dosis.getAntal();
+        return  dosisAntal/antalDage();
     }
 
     @Override
