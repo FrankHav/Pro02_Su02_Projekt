@@ -48,9 +48,8 @@ public class Controller {
 		}
 		else
 		{
-			PN pn = new PN(startDen, slutDen, antal);
+			PN pn = new PN(startDen, slutDen, patient, antal);
 			pn.setLaegemiddel(laegemiddel);
-			patient.addOrdination(pn);
 			return pn;
 		}
 	}
