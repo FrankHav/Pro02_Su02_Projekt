@@ -48,9 +48,8 @@ public class Controller {
 		}
 		else
 		{
-			PN pn = new PN(startDen, slutDen, antal);
+			PN pn = new PN(startDen, slutDen, patient, antal);
 			pn.setLaegemiddel(laegemiddel);
-			patient.addOrdination(pn);
 			return pn;
 		}
 	}
@@ -92,6 +91,15 @@ public class Controller {
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
 		// TODO
+		//Hvis datoen ER indenfor ordinationens gyldighedsperiode:
+		if ((dato.isAfter(ordination.getStartDen()) || dato.isEqual(ordination.getStartDen())) &&
+				(dato.isBefore(ordination.getSlutDen()) || dato.isEqual(ordination.getSlutDen())))
+		{
+			ordination.givDosis(dato);
+		}
+		//Hvis datoen IKKE er indenfor ordinationens gyldighedsperiode:
+		else
+			throw new IllegalArgumentException("Datoen ikke er indenfor ordinationens gyldighedsperiode");
 	}
 
 	/**
@@ -102,7 +110,14 @@ public class Controller {
 	 */
 	public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
 		//TODO
-		return 0;
+		double patientensVaegt = patient.getVaegt();
+
+		if (patientensVaegt < 25)
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnLet();
+		else if (patientensVaegt <= 120)
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnNormal();
+		else
+			return patientensVaegt * laegemiddel.getEnhedPrKgPrDoegnTung();
 	}
 
 	/**
