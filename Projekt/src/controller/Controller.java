@@ -11,6 +11,7 @@ import ordination.PN;
 import ordination.Patient;
 import storage.Storage;
 
+//test af martinn
 public class Controller {
 	private Storage storage;
 	private static Controller controller;
@@ -40,6 +41,7 @@ public class Controller {
 	public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
 			Patient patient, Laegemiddel laegemiddel, double antal) {
 		// TODO
+
 		return null;
 	}
 

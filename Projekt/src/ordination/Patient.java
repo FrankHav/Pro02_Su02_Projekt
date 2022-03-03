@@ -5,8 +5,25 @@ public class Patient {
     private String navn;
     private double vaegt;
 
+    //----------------------------------------------------------------
     // TODO: Link til Ordination
+    //association --> 0..1 Ordination
+    private Ordination ordination;
 
+    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
+    /** Pre: Ordinationen er ikke forbundet til en patient. */
+    public void setOrdination(Ordination ordination)
+    {
+        this.ordination = ordination;
+    }
+
+    /** Pre: Ordinationen er forbundet til denne patient. */
+    public void removeOrdination(Ordination ordination)
+    {
+        this.ordination = null;
+    }
+
+    //----------------------------------------------------------------
     public Patient(String cprnr, String navn, double vaegt) {
         this.cprnr = cprnr;
         this.navn = navn;
@@ -32,8 +49,6 @@ public class Patient {
     public void setVaegt(double vaegt){
         this.vaegt = vaegt;
     }
-
-    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
 
     @Override
     public String toString(){
