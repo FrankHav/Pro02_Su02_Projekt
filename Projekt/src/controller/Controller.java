@@ -86,6 +86,9 @@ public class Controller {
 		if (!checkStartFoerSlut(startDen, slutDen)) {
 			throw new IllegalArgumentException("StartDato er efter slutDato");
 		}
+		if (klokkeSlet.length != antalEnheder.length){
+			throw new IllegalArgumentException("Antal elementer i klokkeSlet og antalEnheder er ikke ens");
+		}
 		else {
 			DagligSkaev ds = new DagligSkaev(startDen, slutDen, klokkeSlet, antalEnheder, patient);
 			ds.setLaegemiddel(laegemiddel);

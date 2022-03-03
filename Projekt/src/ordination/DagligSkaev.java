@@ -9,15 +9,16 @@ public class DagligSkaev extends Ordination{
     private LocalTime tid;
     private Laegemiddel laegemiddel;
     private LocalTime[] klokkeSlet;
-    private double antal;
+    private double[] antalEnheder;
 
     //-----------------------------------------------------------------------------------------------------
 
-    public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime tid, double antal, Patient patient) {
+    public DagligSkaev(LocalDate startDen, LocalDate slutDen,LocalTime klokkeSlet[], double[] antalEnheder, Patient patient) {
         super(startDen, slutDen, patient);
-        this.antal = antal;
-        this.tid = tid;
-
+        this.antalEnheder = antalEnheder;
+        for (int i = 0; i<klokkeSlet.length; i++){
+            opretDosis(klokkeSlet[i],antalEnheder[i]);
+        }
     }
 
     // Composition: --> 0..* Dosis
@@ -28,9 +29,8 @@ public class DagligSkaev extends Ordination{
     }
 
 
-    public Dosis opretDosis(LocalTime tid, double antal,LocalDate startDen,LocalDate slutDen, Patient patient,
-                           Laegemiddel laegemiddel) {
-        Dosis dosis = new Dosis(tid, antal);
+    public Dosis opretDosis(LocalTime tid, double antalEnheder) {
+        Dosis dosis = new Dosis(tid, antalEnheder);
         doser.add(dosis);
         return dosis;
     }
