@@ -1,6 +1,7 @@
 package controller;
 
 import ordination.*;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,8 +39,8 @@ class ControllerTest
         int expectedArrayLength = 4;
 
         //Act
-        DagligFast dagligFast = Controller.getController().opretDagligFastOrdination(startDen, slutDen, patient,
-                laegemiddel, morgenAntal, middagAntal, aftenAntal, natAntal);
+        DagligFast dagligFast = Controller.getController().opretDagligFastOrdination(startDen, slutDen,
+                patient, laegemiddel, morgenAntal, middagAntal, aftenAntal, natAntal);
 
         //Assert
         assertEquals(expectedArrayLength, dagligFast.getDosisArray().length);
@@ -80,8 +81,8 @@ class ControllerTest
         double[] antalEnheder = { 2, 4 };
 
         //Act
-        DagligSkaev dagligSkaev = Controller.getController().opretDagligSkaevOrdination(startDen, slutDen, patient,
-                laegemiddel, klokkeslet, antalEnheder);
+        DagligSkaev dagligSkaev = Controller.getController().opretDagligSkaevOrdination(startDen, slutDen,
+                patient, laegemiddel, klokkeslet, antalEnheder);
 
         //Assert
         assertTrue(patient.getOrdinationer().contains(dagligSkaev));
@@ -128,7 +129,8 @@ class ControllerTest
             Controller.getController().opretDagligSkaevOrdination(startDen, slutDen, patient,
                     laegemiddel, klokkeslet, antalEnheder);
         });
-        assertTrue(exception.getMessage().contains("Antal elementer i klokkeSlet og antalEnheder er ikke ens"));
+        assertTrue(exception.getMessage().contains(
+                "Antal elementer i klokkeSlet og antalEnheder er ikke ens"));
     }
 
     //-------------------- opretPNOrdination ----------------------------
@@ -165,10 +167,6 @@ class ControllerTest
         LocalDate slutDen = LocalDate.of(2022, 3, 4);
         double antal = 5;
 
-        //Act
-        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
-                laegemiddel, antal);
-
         //Act & Assert
         Exception exception = assertThrows(RuntimeException.class, () -> {
             Controller.getController().opretPNOrdination(startDen, slutDen, patient,
@@ -183,7 +181,8 @@ class ControllerTest
     {
         double expected = 10;
         patient = new Patient("120621212", "Mads", 20);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -194,7 +193,8 @@ class ControllerTest
     {
         double expected = 17.5;
         patient = new Patient("120621212", "Mads", 25);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -205,7 +205,8 @@ class ControllerTest
     {
         double expected = 35;
         patient = new Patient("120621212", "Mads", 50);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -216,7 +217,8 @@ class ControllerTest
     {
         double expected = 112.5;
         patient = new Patient("120621212", "Mads", 125);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -227,73 +229,12 @@ class ControllerTest
     {
         double expected = 126;
         patient = new Patient("120621212", "Mads", 140);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
-    }
-
-    @Test
-    void antalOrdinationerPrVægtPrLægemiddel_vagetStart30_VaegtSlut60(){
-        //arrange.
-        double vaegtStart = 30;
-        double vaegtSlut = 60;
-        double expected = 0;
-        laegemiddel = new Laegemiddel("paracetamol", 0.1, 0.15, 0.16, "styk");
-
-        //Act & Assert.
-        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
-        assertEquals(expected, c1);
-    }
-    @Test
-    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut70(){
-        //arrange.
-        double vaegtStart = 60;
-        double vaegtSlut = 70;
-        double expected = 1;
-        laegemiddel = new Laegemiddel("paracetamol", 0.1, 0.15, 0.16, "styk");
-
-        //Act & Assert.
-        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
-        assertEquals(expected, c1);
-    }
-    @Test
-    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut63_4(){
-        //arrange.
-        double vaegtStart = 60;
-        double vaegtSlut = 63.4;
-        double expected = 1;
-        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
-
-        //Act & Assert.
-        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
-        assertEquals(expected, c1);
-    }
-
-    @Test
-    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut63_3(){
-        //arrange.
-        double vaegtStart = 60;
-        double vaegtSlut = 63.3;
-        double expected = 1;
-        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
-
-        //Act & Assert.
-        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
-        assertEquals(expected, c1);
-    }
-    @Test
-    void antalOrdinationerPrVægtPrLægemiddel_vagetStart63_4_VaegtSlut63_70(){
-        //arrange.
-        double vaegtStart = 63.4;
-        double vaegtSlut = 70;
-        double expected = 1;
-        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
-
-        //Act & Assert.
-        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
-        assertEquals(expected, c1);
     }
 
     //-------------------- ordinationPNAnvendt ----------------------------
@@ -336,6 +277,152 @@ class ControllerTest
         Exception exception = assertThrows(RuntimeException.class, () -> {
             Controller.getController().ordinationPNAnvendt(PN, dato);
         });
-        assertTrue(exception.getMessage().contains("Datoen ikke er indenfor ordinationens gyldighedsperiode"));
+        assertTrue(exception.getMessage().contains(
+                "Datoen ikke er indenfor ordinationens gyldighedsperiode"));
+    }
+
+    //-------------------- antalOrdinationerPrVægtPrLægemiddel ----------------------------
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_gyldigeMidtVærdierVægt()
+    {
+        //Arrange
+        Controller controller = new Controller();
+
+        Patient patient1 = controller.opretPatient("121256-0512", "Jane Jensen", 63.4);
+        Patient patient2 = controller.opretPatient("070985-1153", "Finn Madsen", 83.2);
+        Patient patient3 = controller.opretPatient("050972-1233", "Hans Jørgensen", 89.4);
+
+
+        Laegemiddel laegemiddel1 = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,
+                0.15, 0.16, "Styk");
+        Laegemiddel laegemiddel2 = controller.opretLaegemiddel("Paracetamol", 1,
+                1.5, 2, "Ml");
+        Laegemiddel laegemiddel3 = controller.opretLaegemiddel("Fucidin", 0.025,
+                0.025, 0.025, "Styk");
+
+        PN PNOrdination1 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel1, 5);
+        PN PNOrdination2 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel2, 5);
+        PN PNOrdination3 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel2, 5);
+        PN PNOrdination4 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel3, 5);
+        PN PNOrdination5 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel1, 5);
+        PN PNOrdination6 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient3, laegemiddel3, 5);
+
+        //Act
+        int actualAntal1 = controller.antalOrdinationerPrVægtPrLægemiddel(
+                30, 60, laegemiddel1);
+        int actualAntal2 = controller.antalOrdinationerPrVægtPrLægemiddel(
+                60, 70, laegemiddel1);
+        //Assert
+        assertEquals(0, actualAntal1);
+        assertEquals(1, actualAntal2);
+    }
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_gyldigeGrænseVærdierVægt()
+    {
+        //Arrange
+        Controller controller = new Controller();
+
+        Patient patient1 = controller.opretPatient("121256-0512", "Jane Jensen", 63.4);
+        Patient patient2 = controller.opretPatient("070985-1153", "Finn Madsen", 83.2);
+        Patient patient3 = controller.opretPatient("050972-1233", "Hans Jørgensen", 89.4);
+
+
+        Laegemiddel laegemiddel1 = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,
+                0.15, 0.16, "Styk");
+        Laegemiddel laegemiddel2 = controller.opretLaegemiddel("Paracetamol", 1,
+                1.5, 2, "Ml");
+        Laegemiddel laegemiddel3 = controller.opretLaegemiddel("Fucidin", 0.025,
+                0.025, 0.025, "Styk");
+
+        PN PNOrdination1 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel1, 5);
+        PN PNOrdination2 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel2, 5);
+        PN PNOrdination3 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel2, 5);
+        PN PNOrdination4 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel3, 5);
+        PN PNOrdination5 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel1, 5);
+        PN PNOrdination6 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient3, laegemiddel3, 5);
+
+        //Act
+        int actualAntal1 = controller.antalOrdinationerPrVægtPrLægemiddel(
+                60, 63.4, laegemiddel2);
+        int actualAntal2 = controller.antalOrdinationerPrVægtPrLægemiddel(
+                63.4, 70, laegemiddel1);
+        int actualAntal3 = controller.antalOrdinationerPrVægtPrLægemiddel(
+                70, 89.4, laegemiddel3);
+
+        //Assert
+        assertEquals(1, actualAntal1);
+        assertEquals(1, actualAntal2);
+        assertEquals(2, actualAntal3);
+    }
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vægtStartMinus()
+    {
+        //Arrange
+        Controller controller = new Controller();
+
+        Patient patient1 = controller.opretPatient("121256-0512", "Jane Jensen", 63.4);
+        Patient patient2 = controller.opretPatient("070985-1153", "Finn Madsen", 83.2);
+        Patient patient3 = controller.opretPatient("050972-1233", "Hans Jørgensen", 89.4);
+
+
+        Laegemiddel laegemiddel1 = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,
+                0.15, 0.16, "Styk");
+        Laegemiddel laegemiddel2 = controller.opretLaegemiddel("Paracetamol", 1,
+                1.5, 2, "Ml");
+        Laegemiddel laegemiddel3 = controller.opretLaegemiddel("Fucidin", 0.025,
+                0.025, 0.025, "Styk");
+
+        PN PNOrdination1 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel1, 5);
+        PN PNOrdination2 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient1, laegemiddel2, 5);
+        PN PNOrdination3 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel2, 5);
+        PN PNOrdination4 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel3, 5);
+        PN PNOrdination5 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient2, laegemiddel1, 5);
+        PN PNOrdination6 = controller.opretPNOrdination(
+                LocalDate.of(2021, 1, 20),
+                LocalDate.of(2021, 1, 25), patient3, laegemiddel3, 5);
+
+        //Act
+        int actualAntal = controller.antalOrdinationerPrVægtPrLægemiddel(
+                -22, 70, laegemiddel1);
+
+        //Assert
+        assertEquals(1, actualAntal);
     }
 }
