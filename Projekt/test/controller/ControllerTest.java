@@ -81,8 +81,8 @@ class ControllerTest
         double[] antalEnheder = { 2, 4 };
 
         //Act
-        DagligSkaev dagligSkaev = Controller.getController().opretDagligSkaevOrdination(startDen, slutDen, patient,
-                laegemiddel, klokkeslet, antalEnheder);
+        DagligSkaev dagligSkaev = Controller.getController().opretDagligSkaevOrdination(startDen,
+                slutDen, patient, laegemiddel, klokkeslet, antalEnheder);
 
         //Assert
         assertTrue(patient.getOrdinationer().contains(dagligSkaev));
@@ -129,7 +129,8 @@ class ControllerTest
             Controller.getController().opretDagligSkaevOrdination(startDen, slutDen, patient,
                     laegemiddel, klokkeslet, antalEnheder);
         });
-        assertTrue(exception.getMessage().contains("Antal elementer i klokkeSlet og antalEnheder er ikke ens"));
+        assertTrue(exception.getMessage().contains(
+                "Antal elementer i klokkeSlet og antalEnheder er ikke ens"));
     }
 
     //-------------------- opretPNOrdination ----------------------------
@@ -179,7 +180,8 @@ class ControllerTest
     {
         double expected = 10;
         patient = new Patient("120621212", "Mads", 20);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -190,7 +192,8 @@ class ControllerTest
     {
         double expected = 17.5;
         patient = new Patient("120621212", "Mads", 25);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -201,7 +204,8 @@ class ControllerTest
     {
         double expected = 35;
         patient = new Patient("120621212", "Mads", 50);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -212,7 +216,8 @@ class ControllerTest
     {
         double expected = 112.5;
         patient = new Patient("120621212", "Mads", 125);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -223,7 +228,8 @@ class ControllerTest
     {
         double expected = 126;
         patient = new Patient("120621212", "Mads", 140);
-        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7,
+                0.9, "styk");
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
@@ -232,7 +238,7 @@ class ControllerTest
 
     //-------------------- ordinationPNAnvendt ----------------------------
     @Test
-    void ordinationPNAnvendt_korrektOprettelse()
+    void ordinationPNAnvendt_korrektOprettelseDatoSamtGrænseværdier()
     {
         //Arrange
         LocalDate startDen = LocalDate.of(2022, 9, 2);
@@ -240,13 +246,37 @@ class ControllerTest
         double antal = 5;
         PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
                 laegemiddel, antal);
-        LocalDate dato = LocalDate.of(2022, 9, 4);
+        LocalDate dato1 = LocalDate.of(2022, 9, 4);
+        LocalDate dato2 = LocalDate.of(2022, 9, 9);
+        LocalDate dato3 = LocalDate.of(2022, 9, 2);
 
         //Act
-        Controller.getController().ordinationPNAnvendt(PN, dato);
+        Controller.getController().ordinationPNAnvendt(PN, dato1);
+        Controller.getController().ordinationPNAnvendt(PN, dato2);
+        Controller.getController().ordinationPNAnvendt(PN, dato3);
 
         //Assert
-        assertTrue(PN.getDatoerForGivetDosis().contains(dato));
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato1));
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato2));
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato3));
+    }
+
+    @Test
+    void ordinationPNAnvendt_datoUgyldigeVærdier()
+    {
+        //Arrange
+        LocalDate startDen = LocalDate.of(2022, 9, 2);
+        LocalDate slutDen = LocalDate.of(2022, 9, 9);
+        double antal = 5;
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
+        LocalDate dato = LocalDate.of(2022, 9, 1);
+
+        //Act & Assert
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Controller.getController().ordinationPNAnvendt(PN, dato);
+        });
+        assertTrue(exception.getMessage().contains("Datoen ikke er indenfor ordinationens gyldighedsperiode"));
     }
 
 }
