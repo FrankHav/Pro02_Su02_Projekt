@@ -181,7 +181,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 20);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(10,c1);
     }
@@ -192,7 +192,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 25);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -203,7 +203,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 50);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -214,7 +214,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 125);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -225,7 +225,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 140);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
