@@ -185,7 +185,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 20);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(10,c1);
     }
@@ -196,7 +196,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 25);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -207,7 +207,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 50);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -218,7 +218,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 125);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -229,7 +229,7 @@ class ControllerTest
         patient = new Patient("120621212", "Mads", 140);
         laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
         //arrange.
-        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+        double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
         assertEquals(expected,c1);
     }
@@ -283,7 +283,7 @@ class ControllerTest
         int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
         assertEquals(expected, c1);
     }
- @Test
+    @Test
     void antalOrdinationerPrVægtPrLægemiddel_vagetStart63_4_VaegtSlut63_70(){
         //arrange.
         double vaegtStart = 63.4;
@@ -294,5 +294,48 @@ class ControllerTest
         //Act & Assert.
         int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
         assertEquals(expected, c1);
+    }
+
+    //-------------------- ordinationPNAnvendt ----------------------------
+    @Test
+    void ordinationPNAnvendt_korrektOprettelseDatoSamtGrænseværdier()
+    {
+        //Arrange
+        LocalDate startDen = LocalDate.of(2022, 9, 2);
+        LocalDate slutDen = LocalDate.of(2022, 9, 9);
+        double antal = 5;
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
+        LocalDate dato1 = LocalDate.of(2022, 9, 4);
+        LocalDate dato2 = LocalDate.of(2022, 9, 9);
+        LocalDate dato3 = LocalDate.of(2022, 9, 2);
+
+        //Act
+        Controller.getController().ordinationPNAnvendt(PN, dato1);
+        Controller.getController().ordinationPNAnvendt(PN, dato2);
+        Controller.getController().ordinationPNAnvendt(PN, dato3);
+
+        //Assert
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato1));
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato2));
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato3));
+    }
+
+    @Test
+    void ordinationPNAnvendt_datoUgyldigeVærdier()
+    {
+        //Arrange
+        LocalDate startDen = LocalDate.of(2022, 9, 2);
+        LocalDate slutDen = LocalDate.of(2022, 9, 9);
+        double antal = 5;
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
+        LocalDate dato = LocalDate.of(2022, 9, 1);
+
+        //Act & Assert
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Controller.getController().ordinationPNAnvendt(PN, dato);
+        });
+        assertTrue(exception.getMessage().contains("Datoen ikke er indenfor ordinationens gyldighedsperiode"));
     }
 }
