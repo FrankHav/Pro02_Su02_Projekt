@@ -1,6 +1,7 @@
 package controller;
 
 import ordination.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -138,7 +139,6 @@ class ControllerTest
         //Arrange
         this.laegemiddel = new Laegemiddel("Acetylsalicylsyre", 0.3,
                 0.4, 5, "Styk");
-        Laegemiddel laegemiddel2 = null;
         LocalDate startDen = LocalDate.of(2022, 3, 4);
         LocalDate slutDen = LocalDate.of(2022, 3, 10);
         double antal = 5;
@@ -156,7 +156,7 @@ class ControllerTest
     }
 
     @Test
-    void opretPNOrdination_startDatoEfterSlutDato()
+    void opretPNOrdination_startDatoEfterSlutDatoException()
     {
         //Arrange
         this.laegemiddel = new Laegemiddel("Acetylsalicylsyre", 0.3,
@@ -164,10 +164,6 @@ class ControllerTest
         LocalDate startDen = LocalDate.of(2022, 3, 10);
         LocalDate slutDen = LocalDate.of(2022, 3, 4);
         double antal = 5;
-
-        //Act
-        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
-                laegemiddel, antal);
 
         //Act & Assert
         Exception exception = assertThrows(RuntimeException.class, () -> {
@@ -233,4 +229,24 @@ class ControllerTest
 
         assertEquals(expected,c1);
     }
+
+    //-------------------- ordinationPNAnvendt ----------------------------
+    @Test
+    void ordinationPNAnvendt_korrektOprettelse()
+    {
+        //Arrange
+        LocalDate startDen = LocalDate.of(2022, 9, 2);
+        LocalDate slutDen = LocalDate.of(2022, 9, 9);
+        double antal = 5;
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
+        LocalDate dato = LocalDate.of(2022, 9, 4);
+
+        //Act
+        Controller.getController().ordinationPNAnvendt(PN, dato);
+
+        //Assert
+        assertTrue(PN.getDatoerForGivetDosis().contains(dato));
+    }
+
 }
