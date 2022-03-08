@@ -233,4 +233,66 @@ class ControllerTest
 
         assertEquals(expected,c1);
     }
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vagetStart30_VaegtSlut60(){
+        //arrange.
+        double vaegtStart = 30;
+        double vaegtSlut = 60;
+        double expected = 0;
+        laegemiddel = new Laegemiddel("paracetamol", 0.1, 0.15, 0.16, "styk");
+
+        //Act & Assert.
+        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
+        assertEquals(expected, c1);
+    }
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut70(){
+        //arrange.
+        double vaegtStart = 60;
+        double vaegtSlut = 70;
+        double expected = 1;
+        laegemiddel = new Laegemiddel("paracetamol", 0.1, 0.15, 0.16, "styk");
+
+        //Act & Assert.
+        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
+        assertEquals(expected, c1);
+    }
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut63_4(){
+        //arrange.
+        double vaegtStart = 60;
+        double vaegtSlut = 63.4;
+        double expected = 1;
+        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
+
+        //Act & Assert.
+        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
+        assertEquals(expected, c1);
+    }
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vagetStart60_VaegtSlut63_3(){
+        //arrange.
+        double vaegtStart = 60;
+        double vaegtSlut = 63.3;
+        double expected = 1;
+        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
+
+        //Act & Assert.
+        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
+        assertEquals(expected, c1);
+    }
+ @Test
+    void antalOrdinationerPrVægtPrLægemiddel_vagetStart63_4_VaegtSlut63_70(){
+        //arrange.
+        double vaegtStart = 63.4;
+        double vaegtSlut = 70;
+        double expected = 1;
+        laegemiddel = new Laegemiddel("paracetamol", 1, 1.5, 2, "styk");
+
+        //Act & Assert.
+        int c1 = Controller.getController().antalOrdinationerPrVægtPrLægemiddel(vaegtStart,vaegtSlut,laegemiddel);
+        assertEquals(expected, c1);
+    }
 }
