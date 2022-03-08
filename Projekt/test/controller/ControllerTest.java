@@ -156,12 +156,13 @@ class ControllerTest
     }
 
     @Test
-    void opretPNOrdination_patientErNullException()
+    void opretPNOrdination_startDatoEfterSlutDato()
     {
         //Arrange
-        Laegemiddel laegemiddel2 = null;
-        LocalDate startDen = LocalDate.of(2022, 3, 4);
-        LocalDate slutDen = LocalDate.of(2022, 3, 10);
+        this.laegemiddel = new Laegemiddel("Acetylsalicylsyre", 0.3,
+                0.4, 5, "Styk");
+        LocalDate startDen = LocalDate.of(2022, 3, 10);
+        LocalDate slutDen = LocalDate.of(2022, 3, 4);
         double antal = 5;
 
         //Act
@@ -174,5 +175,11 @@ class ControllerTest
                     laegemiddel, antal);
         });
         assertTrue(exception.getMessage().contains("StartDato er efter slutDato"));
+    }
+
+    //-------------------- anbefaletDosisPrDoegn ----------------------------
+    @Test
+    void anbefaletDosisPrDoegn()
+    {
     }
 }
