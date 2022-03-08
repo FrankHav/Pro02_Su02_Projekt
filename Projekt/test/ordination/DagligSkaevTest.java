@@ -79,9 +79,6 @@ class DagligSkaevTest {
             DagligSkaev DS = new DagligSkaev(startDen, slutDen, klokkeSlet, antalEnheder, patient);
         });
         assertTrue(exception.getMessage().contains("Antal enheder er minus"));
-
-        // TODO:
-        // Test for at dagligSkaev ikke er blevet oprettet
     }
 
     @Test
@@ -96,9 +93,6 @@ class DagligSkaevTest {
             DagligSkaev DS = new DagligSkaev(startDen, slutDen, klokkeSlet, antalEnheder, patient);
         });
         assertTrue(exception.getMessage().contains("Antal enheder er 0"));
-
-        // TODO:
-        // Test for at dagligSkaev ikke er blevet oprettet
     }
 
 
@@ -114,9 +108,6 @@ class DagligSkaevTest {
             DagligSkaev DS = new DagligSkaev(startDen,slutDen,klokkeSlet,antalEnheder,patient);
         });
         assertTrue(exception.getMessage().contains("Patient er null"));
-
-        // TODO:
-        // Test for at dagligSkaev ikke er blevet oprettet
     }
 
 

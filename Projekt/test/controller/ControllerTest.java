@@ -87,9 +87,6 @@ class ControllerTest
         //Assert
         assertTrue(patient.getOrdinationer().contains(dagligSkaev));
         assertEquals(laegemiddel, dagligSkaev.getLaegemiddel());
-
-        // TODO:
-        // Test for at dagligSkaev er blevet oprettet
     }
 
     @Test
@@ -152,9 +149,6 @@ class ControllerTest
         //Assert
         assertTrue(patient.getOrdinationer().contains(PN));
         assertEquals(laegemiddel, PN.getLaegemiddel());
-
-        // TODO:
-        // Test for at dagligSkaev er blevet oprettet
     }
 
     @Test
@@ -339,7 +333,6 @@ class ControllerTest
         Patient patient1 = controller.opretPatient("121256-0512", "Jane Jensen", 63.4);
         Patient patient2 = controller.opretPatient("070985-1153", "Finn Madsen", 83.2);
         Patient patient3 = controller.opretPatient("050972-1233", "Hans Jørgensen", 89.4);
-
 
         Laegemiddel laegemiddel1 = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,
                 0.15, 0.16, "Styk");

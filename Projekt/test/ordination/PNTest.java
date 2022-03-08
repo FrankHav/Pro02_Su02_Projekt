@@ -71,11 +71,6 @@ class PNTest
             PN PN = new PN(startDen, slutDen, patient, antalEnheder);
         });
         assertTrue(exception.getMessage().contains("Slut dato er før start dato"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
-
-
     }
 
     @Test
@@ -89,9 +84,6 @@ class PNTest
             PN PN = new PN(startDen, slutDen, patient, antalEnheder);
         });
         assertTrue(exception.getMessage().contains("Antal enheder er minus"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
     }
 
     @Test
@@ -105,9 +97,6 @@ class PNTest
             PN PN = new PN(startDen, slutDen, patient, antalEnheder);
         });
         assertTrue(exception.getMessage().contains("Patient er null"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
     }
 
     //-------------------- givDosis ----------------------------

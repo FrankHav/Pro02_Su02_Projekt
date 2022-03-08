@@ -83,9 +83,6 @@ public class DagligFastTest {
             DagligFast dagligFast = new DagligFast(startDen, slutDen, patient, morgenAntal, middagAntal, aftenAntal, natAntal);
         });
         assertTrue(exception.getMessage().contains("Slut dato er før start dato"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
     }
 
     @Test
@@ -98,9 +95,6 @@ public class DagligFastTest {
         Exception exception = assertThrows(RuntimeException.class, () -> {
             DagligFast dagligFast = new DagligFast(startDen, slutDen, patient, morgenAntal, middagAntal, aftenAntal, natAntal);        });
         assertTrue(exception.getMessage().contains("Antal enheder er minus"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
     }
 
 
@@ -115,9 +109,6 @@ public class DagligFastTest {
             DagligFast dagligFast = new DagligFast(startDen, slutDen, patient, morgenAntal, middagAntal, aftenAntal, natAntal);
         });
         assertTrue(exception.getMessage().contains("Patient er null"));
-
-        // TODO:
-        // Test for at PN ikke er blevet oprettet
     }
 
     @Test
