@@ -179,7 +179,58 @@ class ControllerTest
 
     //-------------------- anbefaletDosisPrDoegn ----------------------------
     @Test
-    void anbefaletDosisPrDoegn()
+    void anbefaletDosisPrDoegn_20kg()
     {
+        double expected = 10;
+        patient = new Patient("120621212", "Mads", 20);
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        //arrange.
+        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+
+        assertEquals(10,c1);
+    }
+    @Test
+    void anbefaletDosisPrDoegn_25kg_GraenseVaerdi()
+    {
+        double expected = 17.5;
+        patient = new Patient("120621212", "Mads", 25);
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        //arrange.
+        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+
+        assertEquals(expected,c1);
+    }
+    @Test
+    void anbefaletDosisPrDoegn_50kg()
+    {
+        double expected = 35;
+        patient = new Patient("120621212", "Mads", 50);
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        //arrange.
+        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+
+        assertEquals(expected,c1);
+    }
+    @Test
+    void anbefaletDosisPrDoegn_125kg_GraenseVaerdi()
+    {
+        double expected = 112.5;
+        patient = new Patient("120621212", "Mads", 125);
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        //arrange.
+        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+
+        assertEquals(expected,c1);
+    }
+    @Test
+    void anbefaletDosisPrDoegn_140kg()
+    {
+        double expected = 126;
+        patient = new Patient("120621212", "Mads", 140);
+        laegemiddel = new Laegemiddel("paracetamol", 0.5, 0.7, 0.9, "styk");
+        //arrange.
+        var c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
+
+        assertEquals(expected,c1);
     }
 }
