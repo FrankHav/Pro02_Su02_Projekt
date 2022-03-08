@@ -133,7 +133,7 @@ class ControllerTest
 
     //-------------------- opretPNOrdination ----------------------------
     @Test
-    void opretPNOrdination_()
+    void opretPNOrdination_korrektOprettelseMedLinks()
     {
         //Arrange
         this.laegemiddel = new Laegemiddel("Acetylsalicylsyre", 0.3,
@@ -141,14 +141,38 @@ class ControllerTest
         Laegemiddel laegemiddel2 = null;
         LocalDate startDen = LocalDate.of(2022, 3, 4);
         LocalDate slutDen = LocalDate.of(2022, 3, 10);
-        LocalTime[] klokkeslet = { LocalTime.of(10, 0), LocalTime.of(20, 30)};
-        double[] antalEnheder = { 2, 4, 6 };
+        double antal = 5;
+
+        //Act
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
+
+        //Assert
+        assertTrue(patient.getOrdinationer().contains(PN));
+        assertEquals(laegemiddel, PN.getLaegemiddel());
+
+        // TODO:
+        // Test for at dagligSkaev er blevet oprettet
+    }
+
+    @Test
+    void opretPNOrdination_patientErNullException()
+    {
+        //Arrange
+        Laegemiddel laegemiddel2 = null;
+        LocalDate startDen = LocalDate.of(2022, 3, 4);
+        LocalDate slutDen = LocalDate.of(2022, 3, 10);
+        double antal = 5;
+
+        //Act
+        PN PN = Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                laegemiddel, antal);
 
         //Act & Assert
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            Controller.getController().opretDagligSkaevOrdination(startDen, slutDen, patient,
-                    laegemiddel, klokkeslet, antalEnheder);
+            Controller.getController().opretPNOrdination(startDen, slutDen, patient,
+                    laegemiddel, antal);
         });
-        assertTrue(exception.getMessage().contains("Antal elementer i klokkeSlet og antalEnheder er ikke ens"));
+        assertTrue(exception.getMessage().contains("StartDato er efter slutDato"));
     }
 }
