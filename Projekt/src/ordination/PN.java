@@ -87,4 +87,9 @@ public class PN extends Ordination{
     {
         return "PN";
     }
+
+    public List<LocalDate> getDatoerForGivetDosis()
+    {
+        return datoerForGivetDosis;
+    }
 }
