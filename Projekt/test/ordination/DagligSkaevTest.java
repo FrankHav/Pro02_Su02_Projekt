@@ -1,13 +1,13 @@
 package ordination;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DagligSkaevTest {
 
     private Patient patient;
@@ -29,6 +29,7 @@ class DagligSkaevTest {
     //-------------------- DagligSkaev(constructor) ----------------------------
 
     @Test
+    @Order(1)
     void DagligSkaev_korrektOprettelse() {
         //Arrange
         patient = new Patient("0912931956", "Mads jul", 80);
@@ -50,6 +51,7 @@ class DagligSkaevTest {
     }
 
     @Test
+    @Order(2)
     void Dagligskaev_klokkeSlet_ikkeSammeLængdeSom_antalEnheder(){
         //Arrange
         patient = new Patient("0912931956", "Mads jul", 80);
@@ -68,6 +70,7 @@ class DagligSkaevTest {
 
 
     @Test
+    @Order(3)
     void dagligSkaev_antalEnhederMinus()
     {
         //Arrange
@@ -82,6 +85,7 @@ class DagligSkaevTest {
     }
 
     @Test
+    @Order(4)
     void dagligSkaev_antalEnheder0()
     {
         //Arrange
@@ -98,6 +102,7 @@ class DagligSkaevTest {
 
 
     @Test
+    @Order(5)
     void DS_patientNull()
     {
         //Arrange
@@ -112,6 +117,7 @@ class DagligSkaevTest {
 
 
     @Test
+    @Order(6)
     void samletDosis_antalEnheder0()
     {
         //Arrange
@@ -131,6 +137,7 @@ class DagligSkaevTest {
     }
 
     @Test
+    @Order(7)
     void samletDosis_antalEnheder7() {
 
         //Arrange
@@ -151,6 +158,7 @@ class DagligSkaevTest {
     }
 
     @Test
+    @Order(8)
     void doegnDosis_antalEnheder0()
     {
         //Arrange
@@ -170,6 +178,7 @@ class DagligSkaevTest {
     }
 
     @Test
+    @Order(9)
     void doegnDosis_7enheder_over7dage() {
 
         //Arrange
@@ -190,6 +199,7 @@ class DagligSkaevTest {
 
 
     @Test
+    @Order(10)
     void DS_sammeStartOgSlutDato()
     {
         //Arrange

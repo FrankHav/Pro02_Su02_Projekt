@@ -2,14 +2,14 @@ package controller;
 
 import ordination.*;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControllerTest
 {
     private Patient patient;
@@ -26,6 +26,7 @@ class ControllerTest
 
     //-------------------- opretDagligFastOrdination ----------------------------
     @Test
+    @Order(1)
     void opretDagligFastOrdination_korrektOprettelse()
     {
         //Arrange
@@ -49,6 +50,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(2)
     void opretDagligFastOrdination_ugyldigData()
     {
         //Arrange
@@ -69,6 +71,7 @@ class ControllerTest
 
     //-------------------- opretDagligSkaevOrdination ----------------------------
     @Test
+    @Order(3)
     void opretDagligSkaevOrdination_korrektOprettelseMedLinks()
     {
         //Arrange
@@ -90,6 +93,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(4)
     void opretDagligSkaevOrdination_startdatoEfterSlutdatoException()
     {
         //Arrange
@@ -110,6 +114,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(5)
     void opretDagligSkaevOrdination_klokkesletOgEnhederIkkeSammeAntalException()
     {
         //Arrange
@@ -132,6 +137,7 @@ class ControllerTest
 
     //-------------------- opretPNOrdination ----------------------------
     @Test
+    @Order(6)
     void opretPNOrdination_korrektOprettelseMedLinks()
     {
         //Arrange
@@ -152,6 +158,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(7)
     void opretPNOrdination_startDatoEfterSlutDato()
     {
         //Arrange
@@ -171,6 +178,7 @@ class ControllerTest
 
     //-------------------- anbefaletDosisPrDoegn ----------------------------
     @Test
+    @Order(8)
     void anbefaletDosisPrDoegn_20kg()
     {
         double expected = 10;
@@ -180,9 +188,10 @@ class ControllerTest
         //arrange.
         double c1 = Controller.getController().anbefaletDosisPrDoegn(patient, laegemiddel);
 
-        assertEquals(10,c1);
+        assertEquals(expected,c1);
     }
     @Test
+    @Order(9)
     void anbefaletDosisPrDoegn_25kg_GraenseVaerdi()
     {
         double expected = 17.5;
@@ -195,6 +204,7 @@ class ControllerTest
         assertEquals(expected,c1);
     }
     @Test
+    @Order(10)
     void anbefaletDosisPrDoegn_50kg()
     {
         double expected = 35;
@@ -207,6 +217,7 @@ class ControllerTest
         assertEquals(expected,c1);
     }
     @Test
+    @Order(11)
     void anbefaletDosisPrDoegn_125kg_GraenseVaerdi()
     {
         double expected = 112.5;
@@ -219,6 +230,7 @@ class ControllerTest
         assertEquals(expected,c1);
     }
     @Test
+    @Order(12)
     void anbefaletDosisPrDoegn_140kg()
     {
         double expected = 126;
@@ -233,6 +245,7 @@ class ControllerTest
 
     //-------------------- ordinationPNAnvendt ----------------------------
     @Test
+    @Order(13)
     void ordinationPNAnvendt_korrektOprettelseDatoSamtGrænseværdier()
     {
         //Arrange
@@ -257,6 +270,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(14)
     void ordinationPNAnvendt_datoUgyldigeVærdier()
     {
         //Arrange
@@ -278,6 +292,7 @@ class ControllerTest
     //-------------------- antalOrdinationerPrVægtPrLægemiddel ----------------------------
 
     @Test
+    @Order(15)
     void antalOrdinationerPrVægtPrLægemiddel_gyldigeMidtVærdierVægt()
     {
         //Arrange
@@ -325,6 +340,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(16)
     void antalOrdinationerPrVægtPrLægemiddel_gyldigeGrænseVærdierVægt()
     {
         //Arrange
@@ -375,6 +391,7 @@ class ControllerTest
     }
 
     @Test
+    @Order(17)
     void antalOrdinationerPrVægtPrLægemiddel_vægtStartMinus()
     {
         //Arrange
