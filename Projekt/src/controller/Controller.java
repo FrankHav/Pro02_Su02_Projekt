@@ -7,7 +7,7 @@ import java.util.List;
 import ordination.*;
 import storage.Storage;
 
-//test af martinn
+//test af martinn aa
 public class Controller {
 	private Storage storage;
 	private static Controller controller;
